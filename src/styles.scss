@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'assets/fonts/font.scss';
+
+
+
+body {
+  margin: 0px;
+  background: linear-gradient(to bottom right, #DDDDDD 30%, #afadad 82%);
+  font-family: 'Lato', sans-serif !important;
+  padding-bottom: 20px;
+}
