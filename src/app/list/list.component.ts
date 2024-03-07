@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../services/fetch-pokemon.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -7,16 +8,21 @@ import { PokemonService } from '../services/fetch-pokemon.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit{
-  pokemon: any;
+  pokemons: any[] = [];
+  subscription!: Subscription;
 
-  constructor(private pokemonService: PokemonService) { }
+  constructor(private pokemonService: PokemonService) {}
 
   ngOnInit() {
-    this.pokemonService.getPokemon().subscribe(data => {
-      this.pokemon = data;
-      console.log(this.pokemon);
+    this.pokemonService.loadAllPokemon(1, 151);
+    this.subscription = this.pokemonService.pokemons$.subscribe(data => {
+      this.pokemons = data;
     });
   }
 
-
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe(); // Um Memory Leaks zu vermeiden
+    }
+  }
 }

@@ -1,0 +1,42 @@
+@import '../../styles.scss';
+
+.pokemon-list {
+  @include dFlexStandard();
+  flex-wrap: wrap;
+}
+
+.pokemon-card {
+  color: $White;
+  margin: 10px;
+  padding: 10px;
+  width: 280px;
+  border: 1px solid $Bg-Progress;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 2px 2px 6px 2px $Shadow;
+}
+
+.upper-part, .lower-part {
+  @include dFlexStandard($jc: space-between);
+}
+
+.lower-part {
+  img {
+    width: 150px;
+    height: 150px;
+    transition: all .1s ease-in-out;
+    filter: drop-shadow(6px 5px 4px $Shadow);
+  }
+}
+
+.types {
+  @include dFlexStandard($g: 8px);
+  img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.pokemonImg:hover {
+  transform: scale(1.3);
+}

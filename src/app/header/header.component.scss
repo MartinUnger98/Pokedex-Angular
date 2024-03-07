@@ -16,7 +16,7 @@ header {
     img {
       width: 130px;
       cursor: pointer;
-      filter: drop-shadow(6px 5px 4px $Drop-shadow);
+      filter: drop-shadow(6px 5px 4px $Shadow);
       @media (max-width: 700px) {
         display: none;
       }

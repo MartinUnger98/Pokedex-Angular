@@ -1,0 +1,108 @@
+$Normal: #a8a899;
+$Normal-dark: #41413a;
+$Fighting: #a84c3d;
+$Fighting-dark: #3f1c16;
+$Flying: #87b5e5;
+$Flying-dark: #394c60;
+$Poison: #864ab8;
+$Poison-dark: #3b2150;
+$Ground: #956833;
+$Ground-dark: #3f2c16;
+$Rock: #a8995b;
+$Rock-dark: #473F24;
+$Bug: #83ad25;
+$Bug-dark: #415612;
+$Ghost: #633c64;
+$Ghost-dark: #2c1b2d;
+$Steel: #9999a8;
+$Steel-dark: #37373c;
+$Fire: #e53b19;
+$Fire-dark: #781e0c;
+$Water: #278bcc;
+$Water-dark: #14486b;
+$Grass: #58a951;
+$Grass-dark: #2a5127;
+$Electric: #e5c600;
+$Electric-dark: #a08b02;
+$Psychic: #e55973;
+$Psychic-dark: #af4559;
+$Ice: #68baac;
+$Ice-dark: #4b857b;
+$Dragon: #4d64ab;
+$Dragon-dark: #354575;
+$Dark: #463e3e;
+$Dark-dark: #302a2a;
+$Fairy: #d480cf;
+$Fairy-dark: #a0619b;
+
+.normal {
+  background: linear-gradient(to bottom right, $Normal 30%, $Normal-dark 82%);
+}
+
+.fighting {
+  background: linear-gradient(to bottom right, $Fighting 30%, $Fighting-dark 82%);
+}
+
+.flying {
+  background: linear-gradient(to bottom right, $Flying 30%, $Flying-dark 82%);
+}
+
+.poison {
+  background: linear-gradient(to bottom right, $Poison 30%, $Poison-dark 82%);
+}
+
+.ground {
+  background: linear-gradient(to bottom right, $Ground 30%, $Ground-dark 82%);
+}
+
+.rock {
+  background: linear-gradient(to bottom right, $Rock 30%, $Rock-dark 82%);
+}
+
+.bug {
+  background: linear-gradient(to bottom right, $Bug 30%, $Bug-dark 82%);
+}
+
+.ghost {
+  background: linear-gradient(to bottom right, $Ghost 30%, $Ghost-dark 82%);
+}
+
+.steel {
+  background: linear-gradient(to bottom right, $Steel 30%, $Steel-dark 82%);
+}
+
+.fire {
+  background: linear-gradient(to bottom right, $Fire 30%, $Fire-dark 82%);
+}
+
+.water {
+  background: linear-gradient(to bottom right, $Water 30%, $Water-dark 82%);
+}
+
+.grass {
+  background: linear-gradient(to bottom right, $Grass 30%, $Grass-dark 82%);
+}
+
+.electric {
+  background: linear-gradient(to bottom right, $Electric 30%, $Electric-dark 82%);
+}
+
+.psychic {
+  background: linear-gradient(to bottom right, $Psychic 30%, $Psychic-dark 82%);
+}
+
+.ice {
+  background: linear-gradient(to bottom right, $Ice 30%, $Ice-dark 82%);
+}
+
+.dragon {
+  background: linear-gradient(to bottom right, $Dragon 30%, $Dragon-dark 82%);
+}
+
+.dark {
+  background: linear-gradient(to bottom right, $Dark 30%, $Dark-dark 82%);
+}
+
+.fairy {
+  background: linear-gradient(to bottom right, $Fairy 30%, $Fairy-dark 82%);
+}

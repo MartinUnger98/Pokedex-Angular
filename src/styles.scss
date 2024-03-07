@@ -1,12 +1,5 @@
 @import 'assets/fonts/font.scss';
-
-
-body {
-  margin: 0px;
-  /* background: linear-gradient(to bottom right, #DDDDDD 30%, #afadad 82%); */
-  font-family: 'Lato', sans-serif !important;
-  /* padding-bottom: 20px; */
-}
+@import 'types.scss';
 
 $White: #FAF9F6;
 $Black: #02020A;
@@ -16,51 +9,18 @@ $Primary-1: #D1292E;
 $Primary-2: #8b1216;
 $Primary-3: #c0494d;
 $Primary-4: #94050a;
-
-
 $Outline: #540000;
-
-$Drop-shadow: rgba(0, 0, 0, 0.788);
+$Shadow: rgba(0, 0, 0, 0.788);
 $Bg-overlay: rgba(0, 0, 0, 0.5);
 $Bg-Progress: rgb(148, 148, 148);
 
-//Pokemon type variables
-$Normal: #a8a899;
-$Normal-dark: #41413a;
-$Fighting: #a84c3d;
-$Fighting-dark: #3f1c16;
-$Flying: #87b5e5;
-$Flying-dark: #394c60;
-$Poison: #864ab8;
-$Poison-dark: #3b2150;
-$Ground: #956833;
-$Ground-dark: #3f2c16;
-$Rock: #a8995b;
-$Rock-dark: #473F24;
-$Bug: #83ad25;
-$Bug-dark: #415612;
-$Ghost: #633c64;
-$Ghost-dark: #2c1b2d;
-$Steel: #9999a8;
-$Steel-dark: #37373c;
-$Fire: #e53b19;
-$Fire-dark: #781e0c;
-$Water: #278bcc;
-$Water-dark: #14486b;
-$Grass: #58a951;
-$Grass-dark: #2a5127;
-$Electric: #e5c600;
-$Electric-dark: #a08b02;
-$Psychic: #e55973;
-$Psychic-dark: #af4559;
-$Ice: #68baac;
-$Ice-dark: #4b857b;
-$Dragon: #4d64ab;
-$Dragon-dark: #354575;
-$Dark: #463e3e;
-$Dark-dark: #302a2a;
-$Fairy: #d480cf;
-$Fairy-dark: #a0619b;
+body {
+  margin: 0px;
+  font-family: 'Lato', sans-serif !important;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, $Bg-1 30%, $Bg-2 82%);
+}
+
 
 
 //mixins
@@ -77,4 +37,8 @@ $Fairy-dark: #a0619b;
 
 .textcenter {
   text-align: center;
+}
+
+.h1,h2,h3 {
+  margin: 0;
 }

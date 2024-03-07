@@ -1,3 +1,16 @@
-<section>
-
+<section class="pokemon-list">
+  <div *ngFor="let pokemon of pokemons" >
+    <div class="pokemon-card textcenter {{pokemon.types[0].type.name}}" id="pokeID{{pokemon.id}}">
+      <div class="upper-part">
+        <h2>#{{pokemon.id}}</h2>
+        <h2>{{pokemon.name.toUpperCase()}}</h2>
+      </div>
+      <div class="lower-part">
+        <div class="types">
+          <img *ngFor="let type of pokemon.types" class="typeImg" src="assets/type-icons/{{type.type.name}}.svg">
+        </div>
+        <img class="pokemonImg" src="{{pokemon.sprites.other['official-artwork'].front_default}}" />
+      </div>
+    </div>
+  </div>
 </section>
