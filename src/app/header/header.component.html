@@ -1,23 +1,16 @@
-<header class="header text-center pb-3 ">
-  <div class="d-flex justify-content-between  firstrow align-items-center pt-3 paddingx-5">
-    <div class="d-flex align-items-center gap-5">
-      <img id="pokedexImg" class="curser-pointer pokedex" onclick="reset(currentGen)" src="img/pokedex.svg" alt="">
-      <h1 class="curser-pointer" id="resetBtn" onclick="reset(currentGen)">Pokédex</h1>
+<header class="header textcenter">
+  <div class="upperrow">
+    <div class="upperrow__left">
+      <img src="assets/img/pokedex.svg" alt="">
+      <h1 class="">Pokédex</h1>
     </div>
 
-    <div class="d-flex justify-content-center align-items-center gap-1">
-        <input id="searchInput" type="text" placeholder="Search Pokémon..."/>
-        <img onclick="searchPokemon()" src="img/lupe.png" class="img30x30 scale curser-pointer" alt="">
-        <img id="update" onclick="reset(currentGen)" src="img/pfeile-aktualisieren.png" class="d-none img25x25 scale curser-pointer mx-2" alt="">
+    <div class="upperrow__right">
+        <input type="text" placeholder="Search Pokémon..."/>
+        <img src="assets/img/lupe.png" class="search-img" alt="">
     </div>
   </div>
-  <div id="genContainer" class="mt-2">
-    <button id="gen1" class="selected mb-2" onclick="reset('gen1')">Gen1</button>
-    <button id="gen2" class="gens mb-2" onclick="reset('gen2')">Gen2</button>
-    <button id="gen3" class="gens mb-2" onclick="reset('gen3')">Gen3</button>
-    <button id="gen4" class="gens mb-2" onclick="reset('gen4')">Gen4</button>
-    <button id="gen5" class="gens mb-2" onclick="reset('gen5')">Gen5</button>
-    <button id="gen6" class="gens mb-2" onclick="reset('gen6')">Gen6</button>
-    <button id="gen7" class="gens mb-2" onclick="reset('gen7')">Gen7</button>
+  <div class="genContainer">
+    <button *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]" id="'gen' + i" class="" >Gen{{i}}</button>
   </div>
 </header>

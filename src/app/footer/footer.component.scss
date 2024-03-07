@@ -1,0 +1,19 @@
+@import '../../styles.scss';
+
+footer {
+  background: linear-gradient(to bottom right, $Primary-1 30%, $Primary-2 82%);
+  position: absolute;
+  bottom: -80px;
+  left: 0;
+  width: calc(100% - 32px);
+  color: $White;
+  padding: 16px;
+  @include dFlexStandard($fd: column, $g: 8px);
+  a {
+    text-decoration: none;
+    color: $White;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

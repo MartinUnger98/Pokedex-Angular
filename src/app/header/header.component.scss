@@ -1,0 +1,73 @@
+@import '../../styles.scss';
+
+header {
+  background: linear-gradient(to bottom right, $Primary-1 30%, $Primary-2 82%);
+  position: sticky;
+  top: 0;
+  color: $White;
+  z-index: 2;
+}
+
+.upperrow {
+  @include dFlexStandard($jc: space-between);
+  padding: 12px 40px;
+  &__left {
+    @include dFlexStandard($g: 50px);
+    img {
+      width: 130px;
+      cursor: pointer;
+      filter: drop-shadow(6px 5px 4px $Drop-shadow);
+      @media (max-width: 700px) {
+        display: none;
+      }
+    }
+    h1 {
+      cursor: context-menu;
+    }
+  }
+  &__right {
+    @include dFlexStandard($g: 8px);
+    img {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      &:hover {
+        scale: 1.2;
+      }
+    }
+    input {
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 18px;
+      border: none;
+      outline: none;
+    }
+  }
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
+}
+
+.genContainer {
+  @include dFlexStandard($g: 8px);
+  flex-wrap: wrap;
+  padding: 0px 8px 16px;
+  button {
+    cursor: pointer;
+    border-radius: 5px;
+    background-color:  $Primary-3;
+    border: 0.5px solid $Outline;
+    color: $White;
+    font-size: inherit;
+    line-height: inherit;
+    &:hover {
+      background-color: $Primary-4;
+    }
+
+    &.selected {
+      background-color: $Primary-4;
+    }
+  }
+}
+
+
