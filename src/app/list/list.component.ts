@@ -20,6 +20,12 @@ export class ListComponent implements OnInit{
     });
   }
 
+  displayOverlay(pokemon: any): void {
+    // Angenommen, du hast eine Methode im Service, um die aktuellen Pokémon-Details zu setzen
+    this.pokemonService.setCurrentPokemon(pokemon);
+  }
+
+
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe(); // Um Memory Leaks zu vermeiden

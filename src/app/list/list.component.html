@@ -1,5 +1,5 @@
 <section class="pokemon-list">
-  <div *ngFor="let pokemon of pokemons" >
+  <div *ngFor="let pokemon of pokemons" (click)="displayOverlay(pokemon)">
     <div class="pokemon-card textcenter {{pokemon.types[0].type.name}}" id="pokeID{{pokemon.id}}">
       <div class="upper-part">
         <h2>#{{pokemon.id}}</h2>
@@ -13,4 +13,5 @@
       </div>
     </div>
   </div>
+  <app-overlay></app-overlay>
 </section>
