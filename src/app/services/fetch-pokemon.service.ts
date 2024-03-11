@@ -12,6 +12,18 @@ export class PokemonService {
   pokemons$ = this.pokemonsSource.asObservable();
   private currentPokemonSource = new BehaviorSubject<any>(null);
   currentPokemon$ = this.currentPokemonSource.asObservable();
+  private extractEvolutionIds(chain: any): number[] {
+    let ids = [];
+    let current = chain;
+
+    do {
+      let pokemonId = current.species.url.split('/').filter(Boolean).pop();
+      ids.push(+pokemonId); // Das Plus-Zeichen konvertiert den String zu einer Zahl
+      current = current.evolves_to[0];
+    } while (current);
+
+    return ids;
+  }
 
   constructor(private http: HttpClient) {}
 
@@ -53,16 +65,18 @@ export class PokemonService {
     this.currentPokemonSource.next(pokemon);
   }
 
-  private extractEvolutionIds(chain: any): number[] {
-    let ids = [];
-    let current = chain;
+  updateCurrentPokemon(action: 'next' | 'previous'): void {
+    const currentPokemon = this.currentPokemonSource.value;
 
-    do {
-      let pokemonId = current.species.url.split('/').filter(Boolean).pop();
-      ids.push(+pokemonId); // Das Plus-Zeichen konvertiert den String zu einer Zahl
-      current = current.evolves_to[0];
-    } while (current);
-
-    return ids;
+    if (currentPokemon) {
+      const currentId = currentPokemon.id;
+      let newId = action === 'next' ? currentId + 1 : currentId - 1;
+      if (newId < 1) newId = 1;
+      this.fetchPokemonData(newId).subscribe(pokemon => {
+        this.setCurrentPokemon(pokemon);
+      });
+    }
   }
+
+
 }

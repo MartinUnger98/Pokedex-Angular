@@ -7,13 +7,13 @@
           <img *ngFor="let type of pokemon.types" class="typeImg" src="assets/type-icons/{{type.type.name}}.svg">
         </div>
       </div>
-      <img class="action-img" src="assets/img/schliessen.png">
+      <img class="action-img" (click)="closeOverlay()" src="assets/img/schliessen.png">
     </div>
 
     <div class="pokemonSprite">
-      <img class="action-img" src="assets/img/linker-pfeil.png">
+      <img class="action-img" src="assets/img/linker-pfeil.png" (click)="updatePokemon('previous')">
       <img class="pokemonImg" src="{{pokemon.sprites.other['official-artwork'].front_default}}" />
-      <img class="action-img" src="assets/img/rechter-pfeil.png">
+      <img class="action-img" src="assets/img/rechter-pfeil.png" (click)="updatePokemon('next')">
     </div>
 
     <div class="selectableRow">

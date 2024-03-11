@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, HostListener } from '@angular/core';
 import { PokemonService } from '../services/fetch-pokemon.service';
 import { switchMap } from 'rxjs/operators';
 
@@ -13,6 +13,23 @@ export class OverlayComponent implements OnInit {
   evolutionImages: string[] = [];
 
   constructor(private pokemonService: PokemonService) { }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (this.pokemon) {
+      switch (event.key) {
+        case 'ArrowRight':
+          this.updatePokemon('next');
+          break;
+        case 'ArrowLeft':
+          this.updatePokemon('previous');
+          break;
+        case 'Escape':
+          this.closeOverlay();
+          break;
+      }
+    }
+  };
 
   ngOnInit(): void {
     if (this.pokemon && this.pokemon.id) {
@@ -52,5 +69,13 @@ export class OverlayComponent implements OnInit {
       [this.pokemon.types[0].type.name]: this.selectedTab === tabName,
       'colorWhite': this.selectedTab === tabName
     };
+  }
+
+  closeOverlay() {
+    this.pokemon = 	null;
+  }
+
+  updatePokemon(action: 'next' | 'previous') {
+    this.pokemonService.updateCurrentPokemon(action);
   }
 }
