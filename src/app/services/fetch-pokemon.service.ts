@@ -23,6 +23,7 @@ export class PokemonService {
     gen6: { start: 650, end: 721 },
     gen7: { start: 722, end: 809 },
   });
+  public currentGen$ = new BehaviorSubject<number>(1);
   private extractEvolutionIds(chain: any): number[] {
     let ids = [];
     let current = chain;
@@ -68,6 +69,11 @@ export class PokemonService {
   }
 
 
+  clearAllPokemon() {
+    this.pokemons$.next([]);
+  }
+
+
   updateCurrentPokemon(action: 'next' | 'previous'): void {
     const currentPokemon = this.currentPokemon$.value;
     if (currentPokemon) {
@@ -101,4 +107,10 @@ export class PokemonService {
       map(pokemons => pokemons.map(pokemon => pokemon.sprites.other["official-artwork"].front_default))
     );
   }
+
+
+  updateCurrentGen(gen: number) {
+    this.currentGen$.next(gen);
+  }
+
 }

@@ -1,14 +1,14 @@
-import { Component, Input, OnInit, HostListener } from '@angular/core';
+import { Component, Input, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { PokemonService } from '../services/fetch-pokemon.service';
 import { switchMap, } from 'rxjs/operators';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-overlay',
   templateUrl: './overlay.component.html',
   styleUrls: ['./overlay.component.scss']
 })
-export class OverlayComponent implements OnInit {
+export class OverlayComponent implements OnInit, OnDestroy {
   @Input() pokemon: any;
   selectedTab: string = 'stats';
   evolutionImages: string[] = [];

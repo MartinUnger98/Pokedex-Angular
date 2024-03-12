@@ -10,7 +10,7 @@ import { Generations } from '../models/genarations.class';
 })
 export class ListComponent implements OnInit, OnDestroy{
   pokemons: any[] = [];
-  currentGen: number = 1;
+  currentGen!: number;
   isLoading: boolean = false;
   private destroyed$ = new Subject<void>();
   gens = new Generations();
@@ -27,8 +27,12 @@ export class ListComponent implements OnInit, OnDestroy{
       this.gens = gens;
     });
 
-    this.pokemonService.pokemons$.pipe(takeUntil(this.destroyed$)).subscribe((pokemons) =>{
+    this.pokemonService.pokemons$.pipe(takeUntil(this.destroyed$)).subscribe((pokemons) => {
       this.pokemons = pokemons;
+    });
+
+    this.pokemonService.currentGen$.pipe(takeUntil(this.destroyed$)).subscribe((currentGen) => {
+      this.currentGen = currentGen;
     });
   }
 
