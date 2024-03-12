@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  /* private destroyed$ = new Subject<void>();
+  gens!: Generations;
 
+  subscribeObservables() {
+    this.pokemonService.gens$.pipe(takeUntil(this.destroyed$)).subscribe((gens) => {
+      this.gens = gens;
+    });
+  } */
 }

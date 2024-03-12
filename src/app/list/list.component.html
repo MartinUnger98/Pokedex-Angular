@@ -13,5 +13,14 @@
       </div>
     </div>
   </div>
+
+
   <app-overlay></app-overlay>
 </section>
+<div class="loade-more-container">
+  <button class="loadmore" (click)="loadMore()">
+    Load more
+    <div *ngIf="isLoading" class="lds-dual-ring"></div>
+  </button>
+</div>
+

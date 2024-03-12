@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, HostListener } from '@angular/core';
 import { PokemonService } from '../services/fetch-pokemon.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, } from 'rxjs/operators';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-overlay',
@@ -11,6 +12,7 @@ export class OverlayComponent implements OnInit {
   @Input() pokemon: any;
   selectedTab: string = 'stats';
   evolutionImages: string[] = [];
+  private destroyed$ = new Subject<void>();
 
   constructor(private pokemonService: PokemonService) { }
 
@@ -44,13 +46,17 @@ export class OverlayComponent implements OnInit {
             return [];
           }
         })
-      ).subscribe(images => {
-        this.evolutionImages = images;
-      }, error => {
-        console.error('Fehler beim Laden der Evolutionsbilder:', error);
+      ).subscribe({
+        next: (images) => {
+          this.evolutionImages = images;
+        },
+        error: (error) => {
+          console.error('Fehler beim Laden der Evolutionsbilder:', error);
+        }
       });
     }
   }
+
 
   loadEvolutionImages(pokemonId: number) {
     this.pokemonService.getEvolutionImages(pokemonId).subscribe(images => {
@@ -77,5 +83,10 @@ export class OverlayComponent implements OnInit {
 
   updatePokemon(action: 'next' | 'previous') {
     this.pokemonService.updateCurrentPokemon(action);
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 }
