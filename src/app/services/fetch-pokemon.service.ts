@@ -1,20 +1,9 @@
-interface Pokemon {
-  id: number;
-  name: string;
-  sprites: {
-    other: {
-      "official-artwork": {
-        front_default: string;
-      };
-    };
-  };
-}
-
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, forkJoin } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
+import { Pokemon } from '../models/pokemon.class';
+
 
 @Injectable({
   providedIn: 'root'
