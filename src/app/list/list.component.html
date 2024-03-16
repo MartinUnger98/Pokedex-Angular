@@ -16,11 +16,10 @@
 
 
   <app-overlay></app-overlay>
+  <div class="loading-spinner" *ngIf="isLoading">
+    <img src="assets/img/pokeball-spinner.svg" alt="">
+  </div>
 </section>
-<div class="loade-more-container">
-  <button class="loadmore" (click)="loadMore()">
-    Load more
-    <div *ngIf="isLoading" class="lds-dual-ring"></div>
-  </button>
+<div class="load-more-container">
+  <button class="loadmore" (click)="loadMore()">Load more</button>
 </div>
-

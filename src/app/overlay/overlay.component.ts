@@ -55,6 +55,9 @@ export class OverlayComponent implements OnInit, OnDestroy {
         }
       });
     }
+    this.pokemonService.onCloseOverlay().subscribe(() => {
+      this.closeOverlay();
+    });
   }
 
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, forkJoin } from 'rxjs';
+import { Observable, BehaviorSubject, forkJoin, Subject } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { Pokemon } from '../models/pokemon.class';
 
@@ -11,7 +11,8 @@ import { Pokemon } from '../models/pokemon.class';
 
 export class PokemonService {
   private apiUrl = 'https://pokeapi.co/api/v2/';
-  public lastLoadedId$ = new BehaviorSubject<number>(20);
+  public loadingNumber$  = new BehaviorSubject<number>(50);
+  public lastLoadedId$ = new BehaviorSubject<number>(this.loadingNumber$.value);
   public pokemons$ = new BehaviorSubject<any[]>([]);
   public currentPokemon$ = new BehaviorSubject<any>(null);
   public gens$ = new BehaviorSubject<any>({
@@ -24,6 +25,8 @@ export class PokemonService {
     gen7: { start: 722, end: 809 },
   });
   public currentGen$ = new BehaviorSubject<number>(1);
+  public isLoading$ = new BehaviorSubject<boolean>(false);
+  private closeOverlaySubject = new Subject<void>();
   private extractEvolutionIds(chain: any): number[] {
     let ids = [];
     let current = chain;
@@ -55,11 +58,13 @@ export class PokemonService {
 
 
   loadAllPokemon(start: number, end: number): void {
+    this.isLoading$.next(true);
     const pokemonIds = Array.from({ length: end - start + 1 }, (_, i) => start + i);
     forkJoin(pokemonIds.map(id => this.fetchPokemonData(id))).subscribe(pokemons => {
       this.updateLastLoadedId(end);
       const currentPokemons = this.pokemons$.value;
       this.pokemons$.next([...currentPokemons, ...pokemons]);
+      this.isLoading$.next(false);
     });
   }
 
@@ -111,6 +116,16 @@ export class PokemonService {
 
   updateCurrentGen(gen: number) {
     this.currentGen$.next(gen);
+  }
+
+
+  triggerCloseOverlay() {
+    this.closeOverlaySubject.next();
+  }
+
+
+  onCloseOverlay() {
+    return this.closeOverlaySubject.asObservable();
   }
 
 }

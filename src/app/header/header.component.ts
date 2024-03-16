@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private destroyed$ = new Subject<void>();
   gens = new Generations();
   currentGen!: number;
+  loadingNumber!: number;
 
   constructor(private pokemonService: PokemonService) {}
 
@@ -27,15 +28,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.pokemonService.currentGen$.pipe(takeUntil(this.destroyed$)).subscribe((currentGen) => {
       this.currentGen = currentGen;
     });
+
+    this.pokemonService.loadingNumber$.pipe(takeUntil(this.destroyed$)).subscribe(loadingNumber => {
+      this.loadingNumber = loadingNumber;
+    });
   }
 
-  loadGen2(gen: number) {
+  loadGen(gen: number) {
+    this.closeTheOverlay();
     let start = this.gens['gen' + gen].start;
-    let end = start + 19;
+    let end = start + this.loadingNumber - 1;
     this.pokemonService.updateCurrentGen(gen);
     this.pokemonService.clearAllPokemon();
     this.pokemonService.loadAllPokemon(start, end);
   };
+
+
+  closeTheOverlay() {
+    this.pokemonService.triggerCloseOverlay();
+  }
 
   ngOnDestroy() {
     this.destroyed$.next();

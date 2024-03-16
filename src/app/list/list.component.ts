@@ -11,15 +11,16 @@ import { Generations } from '../models/genarations.class';
 export class ListComponent implements OnInit, OnDestroy{
   pokemons: any[] = [];
   currentGen!: number;
-  isLoading: boolean = false;
+  isLoading!: boolean;
+  loadingNumber!: number;
   private destroyed$ = new Subject<void>();
   gens = new Generations();
 
   constructor(private pokemonService: PokemonService) {}
 
   ngOnInit() {
-    this.loadInitialPokemons();
     this.subscribeObservables();
+    this.loadInitialPokemons();
   }
 
   subscribeObservables() {
@@ -27,17 +28,25 @@ export class ListComponent implements OnInit, OnDestroy{
       this.gens = gens;
     });
 
-    this.pokemonService.pokemons$.pipe(takeUntil(this.destroyed$)).subscribe((pokemons) => {
+    this.pokemonService.pokemons$.pipe(takeUntil(this.destroyed$)).subscribe(pokemons => {
       this.pokemons = pokemons;
     });
 
-    this.pokemonService.currentGen$.pipe(takeUntil(this.destroyed$)).subscribe((currentGen) => {
+    this.pokemonService.currentGen$.pipe(takeUntil(this.destroyed$)).subscribe(currentGen => {
       this.currentGen = currentGen;
+    });
+
+    this.pokemonService.isLoading$.pipe(takeUntil(this.destroyed$)).subscribe(isLoading => {
+      this.isLoading = isLoading;
+    });
+
+    this.pokemonService.loadingNumber$.pipe(takeUntil(this.destroyed$)).subscribe(loadingNumber => {
+      this.loadingNumber = loadingNumber;
     });
   }
 
   loadInitialPokemons() {
-    this.pokemonService.loadAllPokemon(1, 20);
+    this.pokemonService.loadAllPokemon(1, this.loadingNumber);
   };
 
   displayOverlay(pokemon: any): void {
@@ -50,7 +59,7 @@ export class ListComponent implements OnInit, OnDestroy{
     const lastId = this.pokemonService.getCurrentLastLoadedId();
 
     let newStartId = lastId + 1;
-    let newEndId = newStartId + 19;
+    let newEndId = newStartId + (this.loadingNumber - 1);
 
     if (newEndId > currentGen.end) {
         newEndId = currentGen.end;
