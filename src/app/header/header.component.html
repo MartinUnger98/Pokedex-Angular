@@ -11,6 +11,6 @@
     </div>
   </div>
   <div class="genContainer">
-    <button *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]" (click)="loadGen2(i)">Gen{{i}}</button>
+    <button [ngClass]="{'selected': currentGen === i}" *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]" (click)="loadGen2(i)">Gen{{i}}</button>
   </div>
 </header>
