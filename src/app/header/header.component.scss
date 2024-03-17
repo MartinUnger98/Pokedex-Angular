@@ -15,7 +15,6 @@ header {
     @include dFlexStandard($g: 50px);
     img {
       width: 130px;
-      cursor: pointer;
       filter: drop-shadow(6px 5px 4px $Shadow);
       @media (max-width: 700px) {
         display: none;

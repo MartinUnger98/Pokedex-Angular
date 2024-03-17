@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListComponent } from './list/list.component';
+import { ImprintComponent } from './imprint/imprint.component';
 
 const routes: Routes = [
   {path: '', component: ListComponent},
-  /* {path: 'privacy-policy', component: PrivacyPolicyComponent},
-  {path: 'imprint', component: ImprintComponent}, */
+  {path: 'imprint', component: ImprintComponent},
 ];
 
 @NgModule({

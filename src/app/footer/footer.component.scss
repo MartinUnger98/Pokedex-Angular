@@ -11,6 +11,7 @@ footer {
   @include dFlexStandard($fd: column, $g: 8px);
   a {
     text-decoration: none;
+    cursor: pointer;
     color: $White;
     &:hover {
       text-decoration: underline;

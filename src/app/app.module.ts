@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ListComponent } from './list/list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { OverlayComponent } from './overlay/overlay.component';
+import { ImprintComponent } from './imprint/imprint.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { OverlayComponent } from './overlay/overlay.component';
     HeaderComponent,
     FooterComponent,
     ListComponent,
-    OverlayComponent
+    OverlayComponent,
+    ImprintComponent
   ],
   imports: [
     BrowserModule,

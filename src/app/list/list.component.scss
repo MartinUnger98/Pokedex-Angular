@@ -3,7 +3,8 @@
 .pokemon-list {
   @include dFlexStandard();
   flex-wrap: wrap;
-  margin: 44px 0;
+  margin-top: 44px;
+  padding-bottom: 44px
 }
 
 .pokemon-card {

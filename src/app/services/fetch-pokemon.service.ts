@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, forkJoin, Subject } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { Pokemon } from '../models/pokemon.class';
-
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +43,7 @@ export class PokemonService {
     return ids;
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   fetchPokemonData(pokemonId: number): Observable<Pokemon> {
     return this.http.get<Pokemon>(`${this.apiUrl}pokemon/${pokemonId}`);
@@ -147,5 +147,9 @@ export class PokemonService {
     }
   }
 
+
+  routeTo(router_link: string) {
+    this.router.navigate([`/${router_link}`]);
+  }
 
 }
