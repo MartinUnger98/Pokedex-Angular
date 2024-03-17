@@ -14,6 +14,8 @@ export class PokemonService {
   public loadingNumber$  = new BehaviorSubject<number>(50);
   public lastLoadedId$ = new BehaviorSubject<number>(this.loadingNumber$.value);
   public pokemons$ = new BehaviorSubject<any[]>([]);
+  public allPokemons$ = new BehaviorSubject<Pokemon[]>([]);
+  public noPokemonFound$ = this.pokemons$.pipe(map(pokemons => pokemons.length === 0));
   public currentPokemon$ = new BehaviorSubject<any>(null);
   public gens$ = new BehaviorSubject<any>({
     gen1: { start: 1, end: 151 },
@@ -27,6 +29,7 @@ export class PokemonService {
   public currentGen$ = new BehaviorSubject<number>(1);
   public isLoading$ = new BehaviorSubject<boolean>(false);
   private closeOverlaySubject = new Subject<void>();
+  public inputValue$ = new BehaviorSubject<string>('');
   private extractEvolutionIds(chain: any): number[] {
     let ids = [];
     let current = chain;
@@ -63,9 +66,15 @@ export class PokemonService {
     forkJoin(pokemonIds.map(id => this.fetchPokemonData(id))).subscribe(pokemons => {
       this.updateLastLoadedId(end);
       const currentPokemons = this.pokemons$.value;
+      this.allPokemons$.next([...currentPokemons, ...pokemons]);
       this.pokemons$.next([...currentPokemons, ...pokemons]);
       this.isLoading$.next(false);
     });
+  }
+
+
+  setAllPokemons(pokemons: Pokemon[]): void {
+    this.allPokemons$.next(pokemons);
   }
 
 
@@ -81,15 +90,13 @@ export class PokemonService {
 
   updateCurrentPokemon(action: 'next' | 'previous'): void {
     const currentPokemon = this.currentPokemon$.value;
-    if (currentPokemon) {
-      const currentId = currentPokemon.id;
-      let newId = action === 'next' ? currentId + 1 : currentId - 1;
-      if (newId < 1) newId = 1;
-      if (newId < this.lastLoadedId$.value + 1) {
-        this.fetchPokemonData(newId).subscribe(pokemon => {
-          this.setCurrentPokemon(pokemon);
-        });
-      }
+    if (!currentPokemon) return;
+    const direction = action === 'next' ? 1 : -1;
+    const newId = Math.max(1, currentPokemon.id + direction);
+    const gens = this.gens$.getValue();
+    const currentGen = `gen${this.currentGen$.getValue()}`;
+    if (newId <= this.lastLoadedId$.getValue() && newId >= gens[currentGen].start) {
+      this.fetchPokemonData(newId).subscribe(pokemon => this.setCurrentPokemon(pokemon));
     }
   }
 
@@ -127,5 +134,18 @@ export class PokemonService {
   onCloseOverlay() {
     return this.closeOverlaySubject.asObservable();
   }
+
+  filterPokemons(searchTerm: string): void {
+    this.inputValue$.next(searchTerm);
+    if (searchTerm) {
+      const filtered = this.allPokemons$.value.filter(pokemon =>
+        pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      this.pokemons$.next(filtered);
+    } else {
+      this.pokemons$.next(this.allPokemons$.value);
+    }
+  }
+
 
 }

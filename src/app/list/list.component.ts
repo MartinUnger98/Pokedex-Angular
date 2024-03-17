@@ -13,6 +13,8 @@ export class ListComponent implements OnInit, OnDestroy{
   currentGen!: number;
   isLoading!: boolean;
   loadingNumber!: number;
+  noPokemonFound!: boolean;
+  inputValue!: string;
   private destroyed$ = new Subject<void>();
   gens = new Generations();
 
@@ -24,7 +26,7 @@ export class ListComponent implements OnInit, OnDestroy{
   }
 
   subscribeObservables() {
-    this.pokemonService.gens$.pipe(takeUntil(this.destroyed$)).subscribe((gens) => {
+    this.pokemonService.gens$.pipe(takeUntil(this.destroyed$)).subscribe(gens => {
       this.gens = gens;
     });
 
@@ -42,6 +44,14 @@ export class ListComponent implements OnInit, OnDestroy{
 
     this.pokemonService.loadingNumber$.pipe(takeUntil(this.destroyed$)).subscribe(loadingNumber => {
       this.loadingNumber = loadingNumber;
+    });
+
+    this.pokemonService.noPokemonFound$.pipe(takeUntil(this.destroyed$)).subscribe(noPokemonFound => {
+      this.noPokemonFound = noPokemonFound;
+    });
+
+    this.pokemonService.inputValue$.pipe(takeUntil(this.destroyed$)).subscribe(inputValue => {
+      this.inputValue = inputValue;
     });
   }
 
@@ -68,7 +78,15 @@ export class ListComponent implements OnInit, OnDestroy{
     if (newStartId <= currentGen.end) {
         this.pokemonService.loadAllPokemon(newStartId, newEndId);
     }
-}
+  }
+
+
+  isLoadMoreVisible(): boolean {
+    const gensKey = `gen${this.currentGen}` as keyof typeof this.gens;
+    const currentGen = this.gens[gensKey];
+    const lastId = this.pokemonService.getCurrentLastLoadedId();
+    return lastId < currentGen.end;
+  }
 
 
   ngOnDestroy() {

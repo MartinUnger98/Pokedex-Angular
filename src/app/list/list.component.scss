@@ -3,6 +3,7 @@
 .pokemon-list {
   @include dFlexStandard();
   flex-wrap: wrap;
+  margin: 44px 0;
 }
 
 .pokemon-card {
@@ -69,10 +70,10 @@
 
 .load-more-container {
   @include dFlexStandard();
-  padding: 50px 0px;
+  padding-bottom: 44px;
 }
 
-.loadmore {
+button {
   @include dFlexStandard($g: 30px);
   cursor: pointer;
   height: 80px;
@@ -81,9 +82,17 @@
   border: none;
   border-radius: 18px;
   color: $White;
-  font-size: 40px;
   transition: background-color 0.1s ease-in-out;
-  &:hover {
-    background-color: $Primary-1;
+
+
+  &.loadmore {
+    font-size: 40px;
+    &:hover {
+      background-color: $Primary-1;
+    }
+  }
+  &.noPokemon {
+    font-size: 28px;
+    cursor: context-menu;
   }
 }

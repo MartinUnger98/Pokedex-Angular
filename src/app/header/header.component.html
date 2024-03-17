@@ -6,8 +6,7 @@
     </div>
 
     <div class="upperrow__right">
-        <input type="text" placeholder="Search Pokémon..."/>
-        <img src="assets/img/lupe.png" class="search-img" alt="">
+        <input type="text" placeholder="Search Pokémon..." [(ngModel)]="searchTerm" (input)="filterPokemons()" />
     </div>
   </div>
   <div class="genContainer">

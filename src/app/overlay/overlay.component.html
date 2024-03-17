@@ -1,5 +1,5 @@
-<section *ngIf="pokemon">
-  <div class="overlay-content {{pokemon.types[0].type.name}}">
+<section *ngIf="pokemon" (click)="closeOverlay()">
+  <div class="overlay-content {{pokemon.types[0].type.name}}" (click)="dontCloseOverlay($event)">
     <div class="pokemonInfo">
       <div>
         <h2>#{{pokemon.id}} {{pokemon.name.toUpperCase()}}</h2>

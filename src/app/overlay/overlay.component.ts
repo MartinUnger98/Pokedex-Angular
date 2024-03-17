@@ -84,6 +84,10 @@ export class OverlayComponent implements OnInit, OnDestroy {
     this.pokemon = 	null;
   }
 
+  dontCloseOverlay(event: Event) {
+    event.stopPropagation();
+  }
+
   updatePokemon(action: 'next' | 'previous') {
     this.pokemonService.updateCurrentPokemon(action);
   }

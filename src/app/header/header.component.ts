@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   gens = new Generations();
   currentGen!: number;
   loadingNumber!: number;
+  searchTerm: string = '';
 
   constructor(private pokemonService: PokemonService) {}
 
@@ -36,6 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   loadGen(gen: number) {
     this.closeTheOverlay();
+    this.clearSearchTerm();
     let start = this.gens['gen' + gen].start;
     let end = start + this.loadingNumber - 1;
     this.pokemonService.updateCurrentGen(gen);
@@ -47,6 +49,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   closeTheOverlay() {
     this.pokemonService.triggerCloseOverlay();
   }
+
+
+  filterPokemons(): void {
+    this.pokemonService.filterPokemons(this.searchTerm);
+  }
+
+
+  clearSearchTerm() {
+    this.searchTerm = '';
+    this.pokemonService.inputValue$.next(this.searchTerm);
+  }
+
 
   ngOnDestroy() {
     this.destroyed$.next();
