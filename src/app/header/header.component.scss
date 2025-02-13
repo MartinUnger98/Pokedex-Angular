@@ -13,10 +13,22 @@ header {
   padding: 12px 40px;
   &__left {
     @include dFlexStandard($g: 50px);
-    img {
+    &__pokedex {
       width: 130px;
       filter: drop-shadow(6px 5px 4px $Shadow);
       @media (max-width: 700px) {
+        display: none;
+      }
+    }
+    &__openScreens {
+      @include dFlexStandard($g: 8px);
+      img {
+        cursor: pointer;
+        &:hover {
+          scale: 1.2;
+        }
+      }
+      @media (max-width: 1200px) {
         display: none;
       }
     }

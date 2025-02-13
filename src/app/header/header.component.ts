@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentGen!: number;
   loadingNumber!: number;
   searchTerm: string = '';
+  secondScreenExist: boolean = false;
 
   constructor(private pokemonService: PokemonService) {}
 
@@ -59,6 +60,39 @@ export class HeaderComponent implements OnInit, OnDestroy {
   clearSearchTerm() {
     this.searchTerm = '';
     this.pokemonService.inputValue$.next(this.searchTerm);
+  }
+
+  async openOnSecondScreen() {
+    if ('getScreenDetails' in window) {
+      try {
+        const screenDetails: any = await (window as any).getScreenDetails();
+        const screens = screenDetails.screens;
+        const currentScreen = screenDetails.currentScreen;
+        const secondScreen = screens.find((screen: Screen) => screen !== currentScreen);
+
+        if (secondScreen) {
+        const sortedScreens = [...screens].sort((a: Screen, b: Screen) => a.width - b.width);
+        const smallScreen = sortedScreens[0];
+        const largeScreen = sortedScreens[sortedScreens.length - 1];
+
+
+        window.open(window.location.href, '_blank',
+          `left=${smallScreen.availLeft},top=${smallScreen.availTop},width=${smallScreen.availWidth},height=${smallScreen.availHeight}`);
+
+        const halfWidth = largeScreen.availWidth / 2;
+        window.open(window.location.href, '_blank',
+          `left=${largeScreen.availLeft},top=${largeScreen.availTop},width=${halfWidth},height=${largeScreen.availHeight}`);
+        window.open(window.location.href, '_blank',
+          `left=${largeScreen.availLeft + halfWidth},top=${largeScreen.availTop},width=${halfWidth},height=${largeScreen.availHeight}`);
+        } else {
+          alert('Es wurde kein zweiter Bildschirm gefunden.');
+        }
+      } catch (error) {
+        console.error('Fehler beim Abrufen der Bildschirmdetails:', error);
+      }
+    } else {
+      alert('Die Window Management API wird in diesem Browser nicht unterstützt.');
+    }
   }
 
 
